@@ -223,11 +223,11 @@ public:
                                       SeenSet &adjacencies,
                                       SeenSet &nodes, Hashtable& bf,
                                       SeenSet &high_degree_nodes) const;
-    
+
     //
     // for debugging/testing purposes only!
     //
-    
+
     // check partition map validity.
     void _validate_pmap()
     {
@@ -244,6 +244,14 @@ class Countgraph : public khmer::Hashgraph
 public:
     explicit Countgraph(WordLength ksize, std::vector<uint64_t> sizes)
         : Hashgraph(ksize, new ByteStorage(sizes)) { } ;
+};
+
+// Hashgraph-derived class with NibbleStorage.
+class SmallCountgraph : public khmer::Hashgraph
+{
+public:
+    explicit SmallCountgraph(WordLength ksize, std::vector<uint64_t> sizes)
+        : Hashgraph(ksize, new NibbleStorage(sizes)) { } ;
 };
 
 // Hashgraph-derived class with BitStorage.

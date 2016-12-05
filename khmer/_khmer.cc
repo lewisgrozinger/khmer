@@ -2381,6 +2381,7 @@ CPYCHECKER_TYPE_OBJECT_FOR_TYPEDEF("khmer_KHashtable_Object")
 #include "_cpy_counttable.hh"
 #include "_cpy_smallcounttable.hh"
 #include "_cpy_hashgraph.hh"
+#include "_cpy_smallcountgraph.hh"
 
 //
 // KCountgraph object
@@ -4754,6 +4755,11 @@ MOD_INIT(_khmer)
         return MOD_ERROR_VAL;
     }
 
+    khmer_KSmallCountgraph_Type.tp_base = &khmer_KHashgraph_Type;
+    if (PyType_Ready(&khmer_KSmallCountgraph_Type) < 0) {
+        return MOD_ERROR_VAL;
+    }
+
     if (PyType_Ready(&khmer_PrePartitionInfo_Type) < 0) {
         return MOD_ERROR_VAL;
     }
@@ -4848,6 +4854,12 @@ MOD_INIT(_khmer)
     Py_INCREF(&khmer_KCountgraph_Type);
     if (PyModule_AddObject( m, "Countgraph",
                             (PyObject *)&khmer_KCountgraph_Type ) < 0) {
+        return MOD_ERROR_VAL;
+    }
+
+    Py_INCREF(&khmer_KSmallCountgraph_Type);
+    if (PyModule_AddObject( m, "SmallCountgraph",
+                            (PyObject *)&khmer_KSmallCountgraph_Type ) < 0) {
         return MOD_ERROR_VAL;
     }
 
